@@ -1,15 +1,17 @@
-id: burp-api-detect
+id: burp-rest-api-detect
 
 info:
-  name: Burp OpenAPI Server running
+  name: Burp Rest API Server Running
   author: joanbono
   severity: info
+  reference: https://portswigger.net/burp/documentation/enterprise/api-reference
 
 requests:
   - method: GET
     path:
-      - "{{BaseURL}}/v0.1/" 
-  matchers-condition: and
+      - "{{BaseURL}}/v0.1/"
+
+    matchers-condition: and
     matchers:
       - type: word
         words:
