@@ -21,6 +21,6 @@ requests:
       - type: word
         part: body
         words:
-          - "[qnap]"
-          - "[/myqnapcloud.php]"
+          - "qnap"
+          - "/myqnapcloud.php"
         condition: or
