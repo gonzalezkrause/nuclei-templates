@@ -1,0 +1,45 @@
+id: wordpress-elementor-detect
+
+info:
+  name: WordPress Elementor Plugin Detection and Version extraction
+  author: gonzalezkrause
+  severity: info
+  description: Searches for elementor plugin and extracts the version
+  reference: https://wordpress.org/plugins/elementor/
+  tags: wordpress,plugin
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    matchers-condition: and
+    matchers:
+      - type: regex
+        name: elementor
+        regex:
+          - <div class=(?:"|')[^"']*elementor
+          - <section class=(?:"|')[^"']*elementor
+          - <link [^>]*href=(?:"|')[^"']*elementor/assets
+          - <link [^>]*href=(?:"|')[^"']*uploads/elementor/css
+        condition: or
+        part: body
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        group: 1
+        part: body
+        name: version-pro
+        regex:
+          - 'preloaded-modules\.min\.js\?ver=([0-9.]+)'
+
+      - type: regex
+        group: 1
+        part: body
+        name: version
+        regex:
+          - 'frontend-modules\.min\.js\?ver=([0-9.]+)'
